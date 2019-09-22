@@ -1,6 +1,8 @@
 # Learning Project - SafeVille -
 
-This project is a learning attempt to share and learn together to those who want it. Please do not take this project as a model because it will be constantly improving and surely there are things that can be done in a better way. On the other hand, this is an invitation to make your contributions of any kind:
+This is a way to document my thinking process and decisions that I am making while developing software. This will allow me to ask questions in a well-defined context and also share my learning process with those who want to.
+
+Please do not take this project as a model because it will be (hopefully) constantly improving and **surely** there are things that can be done in a better way. On the other hand, this is an invitation to make your contributions of any kind:
 - Architecture
 - Algorithms
 - Ideas to meet the objectives of the application
