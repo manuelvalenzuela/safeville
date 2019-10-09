@@ -1,16 +1,15 @@
-using Moq;
-using SafeVille.Core.Gateways;
-
 namespace SafeVille.Tests.UseCases
 {
     using System;
+    using Core;
     using Core.Exceptions;
+    using Core.Gateways;
     using Core.UseCases;
     using Dtos.Out;
     using FluentAssertions;
-    using Xunit;
-    using Core;
     using Mocks;
+    using Moq;
+    using Xunit;
 
     public class ReportVehicleUseCaseTests
     {
