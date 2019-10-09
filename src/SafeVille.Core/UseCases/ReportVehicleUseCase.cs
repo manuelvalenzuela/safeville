@@ -5,7 +5,7 @@
 
     public class ReportVehicleUseCase
     {
-        public PlateReported Report(string plate)
+        public static PlateReported Report(string plate)
         {
             if (string.IsNullOrEmpty(plate))
             {
