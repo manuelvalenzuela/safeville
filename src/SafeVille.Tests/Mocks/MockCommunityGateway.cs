@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using SafeVille.Core.Gateways;
-using SafeVille.Entities;
-
-namespace SafeVille.Tests.Mocks
+﻿namespace SafeVille.Tests.Mocks
 {
+    using System.Threading.Tasks;
+    using Core.Gateways;
+    using Entities;
+
     public class MockCommunityGateway : ICommunityGateway
     {
         public async Task<Community> Create(Community community)

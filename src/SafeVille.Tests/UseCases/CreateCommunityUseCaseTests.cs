@@ -1,14 +1,13 @@
-﻿using System.Threading.Tasks;
-using SafeVille.Core;
-using SafeVille.Tests.Mocks;
-
-namespace SafeVille.Tests.UseCases
+﻿namespace SafeVille.Tests.UseCases
 {
     using System;
+    using System.Threading.Tasks;
+    using Core;
     using Core.Exceptions;
     using Dtos.In;
     using Dtos.Out;
     using FluentAssertions;
+    using Mocks;
     using SafeVille.Core.UseCases;
     using Xunit;
 
@@ -72,7 +71,7 @@ namespace SafeVille.Tests.UseCases
         }
 
         [Fact]
-        public async void CreateValidCommunityRequest_ShouldBeOfTypeCommunityCreated()
+        public async void CreateValidCommunityRequest_ShouldReturnOfTypeCommunityCreated()
         {
             var createCommunityRequest = CreateValidCommunityRequest();
             var created = await CreateCommunityUseCase.Create(createCommunityRequest);
@@ -80,7 +79,7 @@ namespace SafeVille.Tests.UseCases
         }
 
         [Fact]
-        public async void CreateValidCommunityRequest_ShouldHavePropertyCommunityId()
+        public async void CreateValidCommunityRequest_ShouldReturnObjectThatHavePropertyCommunityId()
         {
             var createCommunityRequest = CreateValidCommunityRequest();
             var created = await CreateCommunityUseCase.Create(createCommunityRequest);
@@ -89,7 +88,7 @@ namespace SafeVille.Tests.UseCases
         }
 
         [Fact]
-        public async void CreateValidCommunityRequest_ShouldHaveNotEmptyCommunityId()
+        public async void CreateValidCommunityRequest_ShouldReturnObjectThatHaveNotEmptyCommunityId()
         {
             var createCommunityRequest = CreateValidCommunityRequest();
             var created = await CreateCommunityUseCase.Create(createCommunityRequest);

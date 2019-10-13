@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using Core.Gateways;
+    using Entities;
 
     public class MockUserGateway : IUserGateway
     {
@@ -13,6 +14,11 @@
         {
             var exists = userId == Guid.Parse(ExistentUserId);
             return await Task.FromResult(exists);
+        }
+
+        public async Task<KnownVehicle> RegisterKnownVehicle(KnownVehicle knownVehicle)
+        {
+            return await Task.FromResult(knownVehicle);
         }
     }
 }
