@@ -1,7 +1,12 @@
-﻿namespace SafeVille.Tests.UseCases
+﻿using System.Threading.Tasks;
+using SafeVille.Core;
+using SafeVille.Tests.Mocks;
+
+namespace SafeVille.Tests.UseCases
 {
     using System;
     using Core.Exceptions;
+    using Dtos.In;
     using Dtos.Out;
     using FluentAssertions;
     using SafeVille.Core.UseCases;
@@ -9,11 +14,78 @@
 
     public class CreateCommunityUseCaseTests
     {
+        private const string ExistentUserId = "ed0bf589-ac19-4adb-9199-6d6686d4b60e";
+        private const string NonExistentUserId = "ab0bf589-ac19-4adb-6543-6d6686d4b60e";
+        private const string ValidCommunityName = "Valid Community Name";
+
+        public CreateCommunityUseCaseTests()
+        {
+            Context.UserGateway = new MockUserGateway();
+            Context.CommunityGateway = new MockCommunityGateway();
+        }
+
         [Fact]
         public void CreateNullCommunity_ShouldThrowException()
         {
-            Func<CommunityCreated> action = () => CreateCommunityUseCase.Create(null);
+            Func<Task<CommunityCreated>> action = async () => await CreateCommunityUseCase.Create(null);
             action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void CreateCommunityWithNullUserId_ShouldThrowException()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            createCommunityRequest.UserId = null;
+
+            Func<Task<CommunityCreated>> action = () => CreateCommunityUseCase.Create(createCommunityRequest);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void CreateCommunityWithEmptyUserId_ShouldThrowException()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            createCommunityRequest.UserId = Guid.Empty;
+
+            Func<Task<CommunityCreated>> action = () => CreateCommunityUseCase.Create(createCommunityRequest);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void CreateCommunityWithNonExistentUserId_ShouldThrowException()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            createCommunityRequest.UserId = Guid.Parse(NonExistentUserId);
+
+            Func<Task<CommunityCreated>> action = () => CreateCommunityUseCase.Create(createCommunityRequest);
+            action.Should().Throw<AppNotFoundException>();
+        }
+
+        [Fact]
+        public void CreateCommunityWithEmptyName_ShouldThrowException()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            createCommunityRequest.Name = string.Empty;
+
+            Func<Task<CommunityCreated>> action = () => CreateCommunityUseCase.Create(createCommunityRequest);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public async void CreateValidCommunityRequest_ShouldBeOfTypeCommunityCreated()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            var created = await CreateCommunityUseCase.Create(createCommunityRequest);
+            created.Should().BeOfType<CommunityCreated>();
+        }
+
+        private static CreateCommunityRequest CreateValidCommunityRequest()
+        {
+            return new CreateCommunityRequest
+            {
+                UserId = Guid.Parse(ExistentUserId),
+                Name = ValidCommunityName
+            };
         }
     }
 }

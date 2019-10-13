@@ -9,8 +9,4 @@
     <ProjectReference Include="..\SafeVille.Entities\SafeVille.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
-
 </Project>

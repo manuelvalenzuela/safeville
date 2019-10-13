@@ -10,9 +10,8 @@
 
         protected enum ErrorCodes
         {
-            NullException = 1,
-            ArgumentException = 2,
-            AlreadyExistsException = 3
+            ArgumentException,
+            NotFound
         }
 
         public int ErrorCode { get; protected set; }
