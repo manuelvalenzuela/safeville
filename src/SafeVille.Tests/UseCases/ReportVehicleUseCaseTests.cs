@@ -3,60 +3,54 @@ namespace SafeVille.Tests.UseCases
     using System;
     using Core;
     using Core.Exceptions;
-    using Core.Gateways;
     using Core.UseCases;
     using Dtos.Out;
     using FluentAssertions;
     using Mocks;
-    using Moq;
     using Xunit;
 
     public class ReportVehicleUseCaseTests
     {
-        private const string UnknownPlate = "UnknownPlate";
-        private const string KnownPlate = "KnownPlate";
-        private readonly ReportVehicleUseCase _useCase;
-        private readonly Mock<IPlateReportedGateway> _mockPlateReportedGateway;
-        private readonly Mock<IVilleGateway> _mockVilleGateway;
+        private const string ValidPlate = "ValidPlate";
 
         public ReportVehicleUseCaseTests()
         {
-            _mockPlateReportedGateway = new Mock<IPlateReportedGateway>();
-            _mockVilleGateway = new Mock<IVilleGateway>();
-            Context.PlateReportedGateway = _mockPlateReportedGateway.Object;
-            Context.VilleGateway = _mockVilleGateway.Object;
-            _useCase = new ReportVehicleUseCase();
-        }
-
-        [Fact]
-        public void NotNullTest()
-        {
-            _useCase.Should().NotBeNull();
+            Context.PlateReportedGateway = new MockPlateReportedGateway();
         }
 
         [Fact]
         public void ReportNullPlate_ShouldThrowException()
         {
-            Func<PlateReported> action = () => _useCase.Report(null);
-
+            Func<PlateReported> action = () => ReportVehicleUseCase.Report(null);
             action.Should().Throw<AppArgumentException>();
         }
 
         [Fact]
         public void ReportEmptyPlate_ShouldThrowException()
         {
-            Func<PlateReported> action = () => _useCase.Report(string.Empty);
-
+            Func<PlateReported> action = () => ReportVehicleUseCase.Report(string.Empty);
             action.Should().Throw<AppArgumentException>();
         }
 
         [Fact]
-        public void ReportUnknownPlate_ShouldReturnExpected()
+        public void ReportUnknownPlate_ShouldReturnTypeOfPlateReported()
         {
-            var result = _useCase.Report(UnknownPlate);
+            var result = ReportVehicleUseCase.Report(ValidPlate);
             result.Should().BeOfType<PlateReported>();
+        }
+
+        [Fact]
+        public void ReportUnknownPlate_ShouldNotReturnNull()
+        {
+            var result = ReportVehicleUseCase.Report(ValidPlate);
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ReportUnknownPlate_ShouldReturnPlateReportedWithNotEmptyId()
+        {
+            var result = ReportVehicleUseCase.Report(ValidPlate);
             result.PlateReportedId.Should().NotBeEmpty();
-            _mockVilleGateway.Verify(v => v.IsKnown(UnknownPlate), Times.Once);
         }
     }
 }
