@@ -50,6 +50,16 @@
         }
 
         [Fact]
+        public void RegisterVehicleWithNonExistentAccountableUserId_ShouldThrowException()
+        {
+            var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();
+            vehicleRegistrationRequest.AccountableUserId = Guid.Parse(NonExistentUserId);
+
+            Func<Task<VehicleRegistered>> action = async () => await RegisterKnownVehicleUseCase.Register(vehicleRegistrationRequest);
+            action.Should().Throw<AppNotFoundException>();
+        }
+
+        [Fact]
         public void RegisterVehicleWithNullPlate_ShouldThrowException()
         {
             var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();

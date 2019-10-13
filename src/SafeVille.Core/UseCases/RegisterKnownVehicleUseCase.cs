@@ -27,6 +27,11 @@
                 throw new AppArgumentException(nameof(vehicleRegistrationRequest.Plate));
             }
 
+            if (!await Context.UserGateway.Exists(vehicleRegistrationRequest.AccountableUserId.Value))
+            {
+                throw new AppNotFoundException(nameof(vehicleRegistrationRequest.AccountableUserId));
+            }
+
             var entity = Entities.KnownVehicle.From(vehicleRegistrationRequest.AccountableUserId.Value, vehicleRegistrationRequest.Plate);
 
             var created = await Context.UserGateway.RegisterKnownVehicle(entity);
