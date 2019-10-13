@@ -79,6 +79,23 @@ namespace SafeVille.Tests.UseCases
             created.Should().BeOfType<CommunityCreated>();
         }
 
+        [Fact]
+        public async void CreateValidCommunityRequest_ShouldHavePropertyCommunityId()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            var created = await CreateCommunityUseCase.Create(createCommunityRequest);
+            var properties = created.GetType().GetProperties();
+            properties.Should().Contain(p => p.Name == "CommunityId");
+        }
+
+        [Fact]
+        public async void CreateValidCommunityRequest_ShouldHaveNotEmptyCommunityId()
+        {
+            var createCommunityRequest = CreateValidCommunityRequest();
+            var created = await CreateCommunityUseCase.Create(createCommunityRequest);
+            created.CommunityId.Should().NotBeEmpty();
+        }
+
         private static CreateCommunityRequest CreateValidCommunityRequest()
         {
             return new CreateCommunityRequest

@@ -9,8 +9,6 @@
         {
             return new CommunityCreated
             {
-                Name = created.Name,
-                AdminUserId = created.UserId,
                 CommunityId = created.CommunityId
             };
         }

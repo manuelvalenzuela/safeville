@@ -6,16 +6,16 @@
     {
         public Guid CommunityId { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid OwnerId { get; set; }
 
         public string Name { get; set; }
 
-        public static Community From(Guid communityUserId, string communityName)
+        public static Community From(Guid ownerId, string communityName)
         {
             return new Community
             {
                 CommunityId = Guid.NewGuid(),
-                UserId = communityUserId,
+                OwnerId = ownerId,
                 Name = communityName
             };
         }
