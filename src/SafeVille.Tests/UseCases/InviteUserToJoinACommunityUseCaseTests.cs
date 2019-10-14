@@ -18,10 +18,11 @@
         private const string ExistentNotInvitedUserId = "ef0bf589-ac19-4adb-0987-6d6686d4b60e";
         private const string ExistentCommunityId = "63875ef4-70d8-4cae-94c1-bf5ef0f6843c";
         private const string NonExistentCommunityId = "5b95dff2-40c8-4a05-bab2-345bab750b66";
-
+        
         public InviteUserToJoinACommunityUseCaseTests()
         {
             Context.UserGateway = new MockUserGateway();
+            Context.CommunityGateway = new MockCommunityGateway();
         }
 
         [Fact]
@@ -56,6 +57,36 @@
         {
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitingUserId = Guid.Parse(NonExistentUserId);
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppNotFoundException>();
+        }
+
+        [Fact]
+        public void InviteWithNullCommunityId_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.CommunityId = null;
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void InviteWithEmptyCommunityId_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.CommunityId = Guid.Empty;
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void InviteWithNonExistentCommunityId_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.CommunityId = Guid.Parse(NonExistentCommunityId);
 
             Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppNotFoundException>();

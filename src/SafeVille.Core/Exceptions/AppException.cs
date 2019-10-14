@@ -11,7 +11,8 @@
         protected enum ErrorCodes
         {
             ArgumentException,
-            NotFound
+            NotFound,
+            WithoutPermissionToPerformAction
         }
 
         public int ErrorCode { get; protected set; }

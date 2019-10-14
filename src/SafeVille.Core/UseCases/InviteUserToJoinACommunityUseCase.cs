@@ -1,8 +1,6 @@
 ﻿namespace SafeVille.Core.UseCases
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
     using Dtos.In;
     using Dtos.Out;
@@ -25,6 +23,16 @@
             if (!await Context.UserGateway.Exists(invitation.InvitingUserId.Value))
             {
                 throw new AppNotFoundException(nameof(invitation.InvitingUserId));
+            }
+
+            if (invitation.CommunityId == null || invitation.CommunityId == Guid.Empty)
+            {
+                throw new AppArgumentException(nameof(invitation.CommunityId));
+            }
+
+            if (!await Context.CommunityGateway.Exists(invitation.CommunityId.Value))
+            {
+                throw new AppNotFoundException(nameof(invitation.CommunityId));
             }
 
             return null;
