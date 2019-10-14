@@ -15,27 +15,39 @@
                 throw new AppArgumentException(nameof(invitation));
             }
 
-            if (invitation.InvitingUserId == null || invitation.InvitingUserId == Guid.Empty)
-            {
-                throw new AppArgumentException(nameof(invitation.InvitingUserId));
-            }
+            await CheckUserExists(invitation.InvitingUserId);
 
-            if (!await Context.UserGateway.Exists(invitation.InvitingUserId.Value))
-            {
-                throw new AppNotFoundException(nameof(invitation.InvitingUserId));
-            }
+            await CheckCommunityExists(invitation.CommunityId);
 
-            if (invitation.CommunityId == null || invitation.CommunityId == Guid.Empty)
-            {
-                throw new AppArgumentException(nameof(invitation.CommunityId));
-            }
-
-            if (!await Context.CommunityGateway.Exists(invitation.CommunityId.Value))
-            {
-                throw new AppNotFoundException(nameof(invitation.CommunityId));
-            }
+            await CheckUserExists(invitation.InvitedUserId);
 
             return null;
+        }
+
+        private static async Task CheckCommunityExists(Guid? communityId)
+        {
+            if (communityId == null || communityId == Guid.Empty)
+            {
+                throw new AppArgumentException(nameof(communityId));
+            }
+
+            if (!await Context.CommunityGateway.Exists(communityId.Value))
+            {
+                throw new AppNotFoundException(nameof(communityId));
+            }
+        }
+
+        private static async Task CheckUserExists(Guid? invitingUserId)
+        {
+            if (invitingUserId == null || invitingUserId == Guid.Empty)
+            {
+                throw new AppArgumentException(nameof(invitingUserId));
+            }
+
+            if (!await Context.UserGateway.Exists(invitingUserId.Value))
+            {
+                throw new AppNotFoundException(nameof(invitingUserId));
+            }
         }
     }
 }

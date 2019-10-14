@@ -92,6 +92,36 @@
             action.Should().Throw<AppNotFoundException>();
         }
 
+        [Fact]
+        public void InviteWithNullInvitedUserId_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.InvitedUserId = null;
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void InviteWithEmptyInvitedUserId_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.InvitedUserId = Guid.Empty;
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppArgumentException>();
+        }
+
+        [Fact]
+        public void InviteWithNonExistentInvitedUserId_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.InvitedUserId = Guid.Parse(NonExistentUserId);
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppNotFoundException>();
+        }
+
         private static JoinInvitationRequest CreateValidJoinInvitationRequest()
         {
             return new JoinInvitationRequest
