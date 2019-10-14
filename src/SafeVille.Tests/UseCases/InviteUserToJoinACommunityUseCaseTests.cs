@@ -18,7 +18,8 @@
         private const string ExistentNotInvitedUserId = "ef0bf589-ac19-4adb-0987-6d6686d4b60e";
         private const string ExistentCommunityId = "63875ef4-70d8-4cae-94c1-bf5ef0f6843c";
         private const string NonExistentCommunityId = "5b95dff2-40c8-4a05-bab2-345bab750b66";
-        
+        private const string ExistentUserIdThatDontBelongToCommunityAdmins = "473e95d1-338d-4776-af44-1a346c19b8c6";
+
         public InviteUserToJoinACommunityUseCaseTests()
         {
             Context.UserGateway = new MockUserGateway();
@@ -120,6 +121,16 @@
 
             Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppNotFoundException>();
+        }
+
+        [Fact]
+        public void InviteWith_InvitingUserId_ThatDontBelongToCommunityAdmins_ShouldThrowException()
+        {
+            var invitation = CreateValidJoinInvitationRequest();
+            invitation.InvitingUserId = Guid.Parse(ExistentUserIdThatDontBelongToCommunityAdmins);
+
+            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            action.Should().Throw<AppWithoutPermissionToPerformActionException>();
         }
 
         private static JoinInvitationRequest CreateValidJoinInvitationRequest()

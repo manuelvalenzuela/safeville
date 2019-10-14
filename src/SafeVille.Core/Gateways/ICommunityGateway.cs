@@ -8,6 +8,8 @@
     {
         Task<Community> Create(Community community);
 
-        Task<bool> Exists(Guid invitationCommunityId);
+        Task<bool> Exists(Guid communityId);
+
+        Task<Community> GetByIdWithAdmins(Guid communityId);
     }
 }

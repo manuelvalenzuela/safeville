@@ -1,6 +1,7 @@
 ﻿namespace SafeVille.Entities
 {
     using System;
+    using System.Collections.Generic;
 
     public class Community
     {
@@ -10,13 +11,16 @@
 
         public string Name { get; set; }
 
+        public virtual ICollection<User> Administrators { get; set; }
+
         public static Community From(Guid ownerId, string communityName)
         {
             return new Community
             {
                 CommunityId = Guid.NewGuid(),
                 OwnerId = ownerId,
-                Name = communityName
+                Name = communityName,
+                Administrators = new List<User>()
             };
         }
     }

@@ -1,6 +1,7 @@
 ﻿namespace SafeVille.Core.UseCases
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using Dtos.In;
     using Dtos.Out;
@@ -21,7 +22,19 @@
 
             await CheckUserExists(invitation.InvitedUserId);
 
+            await CheckUserBelongsToCommunityAdmins(invitation.InvitingUserId.Value, invitation.CommunityId.Value);
+
             return null;
+        }
+
+        private static async Task CheckUserBelongsToCommunityAdmins(Guid userId, Guid communityId)
+        {
+            var community = await Context.CommunityGateway.GetByIdWithAdmins(communityId);
+
+            if (community.Administrators.All(a => a.UserId != userId))
+            {
+                throw new AppWithoutPermissionToPerformActionException(nameof(userId));
+            }
         }
 
         private static async Task CheckCommunityExists(Guid? communityId)
@@ -37,16 +50,16 @@
             }
         }
 
-        private static async Task CheckUserExists(Guid? invitingUserId)
+        private static async Task CheckUserExists(Guid? userId)
         {
-            if (invitingUserId == null || invitingUserId == Guid.Empty)
+            if (userId == null || userId == Guid.Empty)
             {
-                throw new AppArgumentException(nameof(invitingUserId));
+                throw new AppArgumentException(nameof(userId));
             }
 
-            if (!await Context.UserGateway.Exists(invitingUserId.Value))
+            if (!await Context.UserGateway.Exists(userId.Value))
             {
-                throw new AppNotFoundException(nameof(invitingUserId));
+                throw new AppNotFoundException(nameof(userId));
             }
         }
     }

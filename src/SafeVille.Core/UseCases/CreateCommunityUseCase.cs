@@ -21,21 +21,26 @@
                 throw new AppArgumentException(nameof(community.Name));
             }
 
-            if (community.UserId == null || community.UserId == Guid.Empty)
-            {
-                throw new AppArgumentException(nameof(community.UserId));
-            }
-
-            if (!await Context.UserGateway.Exists(community.UserId.Value))
-            {
-                throw new AppNotFoundException(nameof(community.UserId));
-            }
+            await CheckUserExists(community.UserId);
 
             var entity = Entities.Community.From(community.UserId.Value, community.Name);
 
             var created = await Context.CommunityGateway.Create(entity);
 
             return CommunityMapper.CreateInsertedFrom(created);
+        }
+
+        private static async Task CheckUserExists(Guid? userId)
+        {
+            if (userId == null || userId == Guid.Empty)
+            {
+                throw new AppArgumentException(nameof(userId));
+            }
+
+            if (!await Context.UserGateway.Exists(userId.Value))
+            {
+                throw new AppNotFoundException(nameof(userId));
+            }
         }
     }
 }
