@@ -14,7 +14,7 @@ Please do not take this project as a model because it will be (hopefully) consta
 The goal of this application is to allow people to proactively face theft in their living places.
 
 Any user must be able to:
-### Admin their communities
+### Manage their communities
 - Create one or more communities
 - Invite other users to join their communities
 - Request access to a community
@@ -24,12 +24,14 @@ Any user must be able to:
   - Give or deny access to users who have requested to join their communities
 - Add a list of emergency numbers related to each community
 
-### Admin their info
+### Manage their info
 - Register their known vehicles
-- Add information about his familiar group
 
 ### Report
 - Report the presence of a vehicle in a community
 - **Get notified if an unknown vehicle was reported**
 - Indicate that the information reported by other user is correct
 - Add additional information to a reported information
+
+### Statistics
+- Know general statistics
