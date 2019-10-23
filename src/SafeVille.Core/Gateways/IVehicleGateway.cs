@@ -1,11 +1,10 @@
 ﻿namespace SafeVille.Core.Gateways
 {
-    using System;
     using System.Threading.Tasks;
     using Entities;
 
-    public interface IUserGateway
+    public interface IVehicleGateway
     {
-        Task<bool> Exists(Guid userId);
+        Task<Vehicle> RegisterKnownVehicle(Vehicle vehicle);
     }
 }

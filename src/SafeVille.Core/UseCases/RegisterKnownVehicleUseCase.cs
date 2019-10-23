@@ -16,10 +16,10 @@
                 throw new AppArgumentException(nameof(vehicleRegistrationRequest));
             }
 
-            if (vehicleRegistrationRequest.AccountableUserId == null ||
-                vehicleRegistrationRequest.AccountableUserId == Guid.Empty)
+            if (vehicleRegistrationRequest.UserId == null ||
+                vehicleRegistrationRequest.UserId == Guid.Empty)
             {
-                throw new AppArgumentException(nameof(vehicleRegistrationRequest.AccountableUserId));
+                throw new AppArgumentException(nameof(vehicleRegistrationRequest.UserId));
             }
 
             if (string.IsNullOrWhiteSpace(vehicleRegistrationRequest.Plate))
@@ -27,16 +27,16 @@
                 throw new AppArgumentException(nameof(vehicleRegistrationRequest.Plate));
             }
 
-            if (!await Context.UserGateway.Exists(vehicleRegistrationRequest.AccountableUserId.Value))
+            if (!await Context.UserGateway.Exists(vehicleRegistrationRequest.UserId.Value))
             {
-                throw new AppNotFoundException(nameof(vehicleRegistrationRequest.AccountableUserId));
+                throw new AppNotFoundException(nameof(vehicleRegistrationRequest.UserId));
             }
 
-            var entity = Entities.KnownVehicle.From(vehicleRegistrationRequest.AccountableUserId.Value, vehicleRegistrationRequest.Plate);
+            var entity = Entities.Vehicle.From(vehicleRegistrationRequest.UserId.Value, vehicleRegistrationRequest.Plate);
 
-            var created = await Context.UserGateway.RegisterKnownVehicle(entity);
+            var created = await Context.VehicleGateway.RegisterKnownVehicle(entity);
 
-            return KnownVehicleMapper.CreateInsertedFrom(created);
+            return VehicleMapper.CreateInsertedFrom(created);
         }
     }
 }

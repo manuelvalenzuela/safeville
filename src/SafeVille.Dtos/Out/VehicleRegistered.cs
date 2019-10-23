@@ -4,6 +4,6 @@
 
     public class VehicleRegistered
     {
-        public Guid KnownVehicleId { get; set; }
+        public Guid VehicleId { get; set; }
     }
 }

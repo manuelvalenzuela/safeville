@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class Community
+    public class Community : IEntity
     {
         public Guid CommunityId { get; set; }
 

@@ -30,10 +30,5 @@
             var exists = _userIds.Contains(userId);
             return await Task.FromResult(exists);
         }
-
-        public async Task<KnownVehicle> RegisterKnownVehicle(KnownVehicle knownVehicle)
-        {
-            return await Task.FromResult(knownVehicle);
-        }
     }
 }

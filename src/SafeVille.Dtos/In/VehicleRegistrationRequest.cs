@@ -4,7 +4,7 @@
 
     public class VehicleRegistrationRequest
     {
-        public Guid? AccountableUserId { get; set; }
+        public Guid? UserId { get; set; }
 
         public string Plate { get; set; }
     }

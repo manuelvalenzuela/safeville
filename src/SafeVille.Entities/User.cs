@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class User
+    public class User : IEntity
     {
         public Guid UserId { get; set; }
     }

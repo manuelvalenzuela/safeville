@@ -20,6 +20,7 @@
         public RegisterKnownVehicleUseCaseTests()
         {
             Context.UserGateway = new MockUserGateway();
+            Context.VehicleGateway = new MockVehicleGateway();
         }
 
         [Fact]
@@ -33,7 +34,7 @@
         public void RegisterVehicleWithNullAccountableUserId_ShouldThrowException()
         {
             var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();
-            vehicleRegistrationRequest.AccountableUserId = null;
+            vehicleRegistrationRequest.UserId = null;
 
             Func<Task<VehicleRegistered>> action = async () => await RegisterKnownVehicleUseCase.Register(vehicleRegistrationRequest);
             action.Should().Throw<AppArgumentException>();
@@ -43,7 +44,7 @@
         public void RegisterVehicleWithEmptyAccountableUserId_ShouldThrowException()
         {
             var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();
-            vehicleRegistrationRequest.AccountableUserId = Guid.Empty;
+            vehicleRegistrationRequest.UserId = Guid.Empty;
 
             Func<Task<VehicleRegistered>> action = async () => await RegisterKnownVehicleUseCase.Register(vehicleRegistrationRequest);
             action.Should().Throw<AppArgumentException>();
@@ -53,7 +54,7 @@
         public void RegisterVehicleWithNonExistentAccountableUserId_ShouldThrowException()
         {
             var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();
-            vehicleRegistrationRequest.AccountableUserId = Guid.Parse(NonExistentUserId);
+            vehicleRegistrationRequest.UserId = Guid.Parse(NonExistentUserId);
 
             Func<Task<VehicleRegistered>> action = async () => await RegisterKnownVehicleUseCase.Register(vehicleRegistrationRequest);
             action.Should().Throw<AppNotFoundException>();
@@ -89,12 +90,12 @@
         }
 
         [Fact]
-        public async void RegisterValidKnownVehicle_ShouldReturnObjectThatHavePropertyKnownVehicleId()
+        public async void RegisterValidKnownVehicle_ShouldReturnObjectThatHavePropertyVehicleId()
         {
             var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();
             var registration = await RegisterKnownVehicleUseCase.Register(vehicleRegistrationRequest);
             var properties = registration.GetType().GetProperties();
-            properties.Should().Contain(p => p.Name == "KnownVehicleId");
+            properties.Should().Contain(p => p.Name == "VehicleId");
         }
 
         [Fact]
@@ -102,14 +103,14 @@
         {
             var vehicleRegistrationRequest = CreateValidVehicleRegistrationRequest();
             var registration = await RegisterKnownVehicleUseCase.Register(vehicleRegistrationRequest);
-            registration.KnownVehicleId.Should().NotBeEmpty();
+            registration.VehicleId.Should().NotBeEmpty();
         }
 
         private static VehicleRegistrationRequest CreateValidVehicleRegistrationRequest()
         {
             return new VehicleRegistrationRequest
             {
-                AccountableUserId = Guid.Parse(ExistentUserId),
+                UserId = Guid.Parse(ExistentUserId),
                 Plate = ValidPlate
             };
         }
