@@ -9,7 +9,7 @@
         {
             Context.UserGateway = new UserGateway();
             Context.CommunityGateway = new CommunityGateway();
-            Context.VehicleReportedGateway = new VehicleReportedGateway();
+            Context.VehicleReportGateway = new VehicleReportGateway();
             Context.VehicleGateway = new VehicleGateway();
         }
     }

@@ -8,7 +8,7 @@
 
     public static class ReportVehicleUseCase
     {
-        public static async Task<VehicleReported> Report(ReportVehicleRequest reportVehicle)
+        public static async Task<VehicleReport> Report(ReportVehicleRequest reportVehicle)
         {
             if (reportVehicle == null)
             {
@@ -30,10 +30,10 @@
                 throw new AppArgumentException(nameof(reportVehicle.UserId));
             }
 
-            var vehicleReported = Entities.VehicleReported.From(reportVehicle.Plate, reportVehicle.CommunityId.Value, reportVehicle.UserId.Value);
-            var inserted = await Context.VehicleReportedGateway.InsertPlateReported(vehicleReported);
+            var vehicleReport = Entities.VehicleReport.From(reportVehicle.Plate, reportVehicle.CommunityId.Value, reportVehicle.UserId.Value);
+            var inserted = await Context.VehicleReportGateway.InsertPlateReport(vehicleReport);
 
-            return VehicleReported.From(inserted.VehicleReportedId);
+            return VehicleReport.From(inserted.VehicleReportId);
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     using System;
     
-    public class VehicleReported : IEntity
+    public class VehicleReport : IEntity
     {
-        public Guid VehicleReportedId { get; set; }
+        public Guid VehicleReportId { get; set; }
 
         public string Plate { get; set; }
 
@@ -12,11 +12,11 @@
 
         public Guid UserId { get; set; }
 
-        public static VehicleReported From(string plate, Guid communityId, Guid userId)
+        public static VehicleReport From(string plate, Guid communityId, Guid userId)
         {
-            return new VehicleReported()
+            return new VehicleReport()
             {
-                VehicleReportedId = Guid.NewGuid(),
+                VehicleReportId = Guid.NewGuid(),
                 Plate = plate,
                 CommunityId = communityId,
                 UserId = userId

@@ -10,6 +10,6 @@
 
         public static IVehicleGateway VehicleGateway { get; set; }
 
-        public static IVehicleReportedGateway VehicleReportedGateway { get; set; }
+        public static IVehicleReportGateway VehicleReportGateway { get; set; }
     }
 }

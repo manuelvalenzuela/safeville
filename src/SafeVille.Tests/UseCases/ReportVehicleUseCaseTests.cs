@@ -19,13 +19,13 @@ namespace SafeVille.Tests.UseCases
 
         public ReportVehicleUseCaseTests()
         {
-            Context.VehicleReportedGateway = new MockVehicleReportedGateway();
+            Context.VehicleReportGateway = new MockVehicleReportGateway();
         }
 
         [Fact]
         public void ReportNullPlateRequest_ShouldThrowException()
         {
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(null);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(null);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -34,7 +34,7 @@ namespace SafeVille.Tests.UseCases
         {
             var vehicleToReport = CreateValidVehicleReport();
             vehicleToReport.Plate = null;
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -43,7 +43,7 @@ namespace SafeVille.Tests.UseCases
         {
             var vehicleToReport = CreateValidVehicleReport();
             vehicleToReport.Plate = string.Empty;
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -52,7 +52,7 @@ namespace SafeVille.Tests.UseCases
         {
             var vehicleToReport = CreateValidVehicleReport();
             vehicleToReport.CommunityId = null;
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -61,7 +61,7 @@ namespace SafeVille.Tests.UseCases
         {
             var vehicleToReport = CreateValidVehicleReport();
             vehicleToReport.CommunityId = Guid.Empty;
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -70,7 +70,7 @@ namespace SafeVille.Tests.UseCases
         {
             var vehicleToReport = CreateValidVehicleReport();
             vehicleToReport.UserId = null;
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -79,16 +79,16 @@ namespace SafeVille.Tests.UseCases
         {
             var vehicleToReport = CreateValidVehicleReport();
             vehicleToReport.UserId = Guid.Empty;
-            Func<Task<VehicleReported>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
+            Func<Task<VehicleReport>> action = async () => await ReportVehicleUseCase.Report(vehicleToReport);
             action.Should().Throw<AppArgumentException>();
         }
 
         [Fact]
-        public async Task ReportUnknownPlate_ShouldReturnTypeOfPlateReported()
+        public async Task ReportUnknownPlate_ShouldReturnTypeOfPlateReport()
         {
             var vehicleToReport = CreateValidVehicleReport();
             var result = await ReportVehicleUseCase.Report(vehicleToReport);
-            result.Should().BeOfType<VehicleReported>();
+            result.Should().BeOfType<VehicleReport>();
         }
 
         [Fact]
@@ -100,11 +100,11 @@ namespace SafeVille.Tests.UseCases
         }
 
         [Fact]
-        public async Task ReportUnknownPlate_ShouldReturnPlateReportedWithNotEmptyId()
+        public async Task ReportUnknownPlate_ShouldReturnPlateReportWithNotEmptyId()
         {
             var vehicleToReport = CreateValidVehicleReport();
             var result = await ReportVehicleUseCase.Report(vehicleToReport);
-            result.VehicleReportedId.Should().NotBeEmpty();
+            result.VehicleReportId.Should().NotBeEmpty();
         }
 
         private static ReportVehicleRequest CreateValidVehicleReport()
