@@ -11,7 +11,7 @@
 
         public string Name { get; set; }
 
-        public virtual ICollection<User> Administrators { get; set; }
+        public virtual ICollection<CommunityUser> CommunityUsers { get; set; }
 
         public static Community From(Guid ownerId, string communityName)
         {
@@ -20,7 +20,7 @@
                 CommunityId = Guid.NewGuid(),
                 OwnerId = ownerId,
                 Name = communityName,
-                Administrators = new List<User>()
+                CommunityUsers = new List<CommunityUser>()
             };
         }
     }

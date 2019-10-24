@@ -30,7 +30,7 @@
         {
             var community = await Context.CommunityGateway.GetByIdWithAdmins(communityId);
 
-            if (community.Administrators.All(a => a.UserId != userId))
+            if (community.CommunityUsers.All(a => a.UserId != userId))
             {
                 throw new AppWithoutPermissionToPerformActionException(nameof(userId));
             }

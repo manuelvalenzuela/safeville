@@ -25,10 +25,11 @@
         public async Task<Community> GetByIdWithAdmins(Guid communityId)
         {
             var community = Community.From(Guid.Parse(ExistentUserId), "COMMUNITY_NAME");
-            community.Administrators.Add(
-                new User
+            community.CommunityUsers.Add(
+                new CommunityUser()
                 {
-                    UserId = Guid.Parse(ExistentUserId)
+                    UserId = Guid.Parse(ExistentUserId),
+                    CommunityId = communityId
                 });
 
             return await Task.FromResult(community);

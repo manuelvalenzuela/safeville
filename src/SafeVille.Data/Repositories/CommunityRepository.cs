@@ -14,7 +14,8 @@
         public async Task<Community> GetByIdWithAdmins(Guid communityId)
         {
             return await Context.Communities
-                .Include(c => c.Administrators)
+                .Include(c => c.CommunityUsers)
+                .ThenInclude(c => c.User)
                 .FirstOrDefaultAsync(c => c.CommunityId == communityId)
                 .ConfigureAwait(true);
         }
