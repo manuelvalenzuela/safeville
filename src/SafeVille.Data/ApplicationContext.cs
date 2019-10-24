@@ -20,6 +20,25 @@
 
         public DbSet<Vehicle> Vehicles  { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null)
+            {
+                return;
+            }
+
+            modelBuilder.Entity<CommunityUser>()
+                .HasKey(bc => new { bc.CommunityId, bc.UserId });
+            modelBuilder.Entity<CommunityUser>()
+                .HasOne(bc => bc.User)
+                .WithMany(b => b.UserCommunities)
+                .HasForeignKey(bc => bc.UserId);
+            modelBuilder.Entity<CommunityUser>()
+                .HasOne(bc => bc.Community)
+                .WithMany(c => c.CommunityUsers)
+                .HasForeignKey(bc => bc.CommunityId);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var cnn = "Server=safeville.database.windows.net; Initial Catalog=safeville_dev_db;Persist Security Info=False;User ID=safeville_sa; Password=$af3Vill3;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
