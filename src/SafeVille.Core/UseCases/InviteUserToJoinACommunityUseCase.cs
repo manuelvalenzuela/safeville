@@ -3,13 +3,11 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Dtos.In;
-    using Dtos.Out;
     using Exceptions;
 
     public static class InviteUserToJoinACommunityUseCase
     {
-        public static async Task<VehicleRegistered> Invite(JoinInvitationRequest invitation)
+        public static async Task<Dtos.Out.InvitationSent> Invite(Dtos.In.JoinInvitationRequest invitation)
         {
             if (invitation == null)
             {
@@ -24,6 +22,7 @@
 
             await CheckUserBelongsToCommunityAdmins(invitation.InvitingUserId.Value, invitation.CommunityId.Value);
 
+            // TODO: Finish implementation
             return null;
         }
 

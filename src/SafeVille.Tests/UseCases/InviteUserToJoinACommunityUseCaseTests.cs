@@ -29,7 +29,7 @@
         [Fact]
         public void InviteNull_ShouldThrowException()
         {
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(null);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(null);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -39,7 +39,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitingUserId = null;
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -49,7 +49,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitingUserId = Guid.Empty;
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -59,7 +59,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitingUserId = Guid.Parse(NonExistentUserId);
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppNotFoundException>();
         }
 
@@ -69,7 +69,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.CommunityId = null;
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -79,7 +79,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.CommunityId = Guid.Empty;
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -89,7 +89,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.CommunityId = Guid.Parse(NonExistentCommunityId);
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppNotFoundException>();
         }
 
@@ -99,7 +99,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitedUserId = null;
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -109,7 +109,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitedUserId = Guid.Empty;
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppArgumentException>();
         }
 
@@ -119,7 +119,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitedUserId = Guid.Parse(NonExistentUserId);
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppNotFoundException>();
         }
 
@@ -129,7 +129,7 @@
             var invitation = CreateValidJoinInvitationRequest();
             invitation.InvitingUserId = Guid.Parse(ExistentUserIdThatDontBelongToCommunityAdmins);
 
-            Func<Task<VehicleRegistered>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
+            Func<Task<InvitationSent>> action = async () => await InviteUserToJoinACommunityUseCase.Invite(invitation);
             action.Should().Throw<AppWithoutPermissionToPerformActionException>();
         }
 
