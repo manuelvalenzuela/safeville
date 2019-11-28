@@ -9,9 +9,9 @@
     {
         private readonly VehicleRepository _vehicleRepository;
 
-        public VehicleGateway()
+        public VehicleGateway(ApplicationContext context)
         {
-            _vehicleRepository = new VehicleRepository(ApplicationContext.GetInstance);
+            _vehicleRepository = new VehicleRepository(context);
         }
 
         public async Task<Vehicle> RegisterKnownVehicle(Vehicle vehicle)

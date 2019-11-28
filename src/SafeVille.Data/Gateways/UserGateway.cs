@@ -9,9 +9,9 @@
     {
         private readonly UserRepository _userRepository;
 
-        public UserGateway()
+        public UserGateway(ApplicationContext context)
         {
-            _userRepository = new UserRepository(ApplicationContext.GetInstance);
+            _userRepository = new UserRepository(context);
         }
 
         public async Task<bool> Exists(Guid userId)

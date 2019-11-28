@@ -9,9 +9,9 @@
     {
         private readonly PlateReportRepository _plateReportRepository;
 
-        public VehicleReportGateway()
+        public VehicleReportGateway(ApplicationContext context)
         {
-            _plateReportRepository = new PlateReportRepository(ApplicationContext.GetInstance);
+            _plateReportRepository = new PlateReportRepository(context);
         }
 
         public async Task<VehicleReport> InsertPlateReport(VehicleReport vehicleReport)

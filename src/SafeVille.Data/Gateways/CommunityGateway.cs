@@ -10,9 +10,9 @@
     {
         private readonly CommunityRepository _communityRepository;
 
-        public CommunityGateway()
+        public CommunityGateway(ApplicationContext context)
         {
-            _communityRepository = new CommunityRepository(ApplicationContext.GetInstance);
+            _communityRepository = new CommunityRepository(context);
         }
 
         public async Task<Community> Create(Community community)

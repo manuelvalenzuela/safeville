@@ -13,9 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeVille.Entities", "SafeV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeVille.Data", "SafeVille.Data\SafeVille.Data.csproj", "{6A54DD7C-FE52-4D16-86DB-F4F2BA165E1E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeVille.Configurations", "SafeVille.Configurations\SafeVille.Configurations.csproj", "{815DB3CE-50AA-4104-9043-74D627448E6D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeVille.Api", "SafeVille.Api\SafeVille.Api.csproj", "{7A4C82B6-0FE9-42EB-BDAE-9B55CE9914ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SafeVille.Api", "SafeVille.Api\SafeVille.Api.csproj", "{7A4C82B6-0FE9-42EB-BDAE-9B55CE9914ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +41,6 @@ Global
 		{6A54DD7C-FE52-4D16-86DB-F4F2BA165E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A54DD7C-FE52-4D16-86DB-F4F2BA165E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A54DD7C-FE52-4D16-86DB-F4F2BA165E1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{815DB3CE-50AA-4104-9043-74D627448E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{815DB3CE-50AA-4104-9043-74D627448E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{815DB3CE-50AA-4104-9043-74D627448E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{815DB3CE-50AA-4104-9043-74D627448E6D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A4C82B6-0FE9-42EB-BDAE-9B55CE9914ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A4C82B6-0FE9-42EB-BDAE-9B55CE9914ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A4C82B6-0FE9-42EB-BDAE-9B55CE9914ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
