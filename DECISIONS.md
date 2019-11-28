@@ -15,3 +15,12 @@ Projects and Folders are structured in this way:
 
 ## Why static functions?
 That is a question that I always ask myself, and I'm still elaborating an answer. Until now what I can say is that static functions are thread safe, they should use memory just to solve the small and particular function they are created and deallocate that memory after finished the last sentence.
+
+## Nov 28th - Dependency Injection vs SharedContext
+Along my previous experiences using ASP.Net (.NET Framework and .NET Core), I have implemented the 'traditional' (maybe should be renamed to 'do what all do') approach, that is to Inject every service you will use as a dependency inside Startup.cs --> ConfigureServices method.
+
+After a while, that method turns into a very large list of injected services that not always you know why they are injected instead of being just created when they are needed.
+
+My first decision was to follow the SharedContext approach, which enables to use a static Context with all the Services that are being used by some particular plugin, inverting the dependencies towards the main functionalities (the use cases).
+
+In order to provide to the repositories the -scoped to the request- DbContext of EntityFramework used by each use case, I used the Dependency Injection container provided by ASP.NET Core in each Controller constructor to initialize the needed services of the SharedContext.
