@@ -35,5 +35,3 @@ Any user must be able to:
 
 ### Statistics
 - Know general statistics
-
-Edited in order to test git functionalities
