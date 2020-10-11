@@ -12,15 +12,12 @@
 
         public Guid UserId { get; set; }
 
-        public static VehicleReport From(string plate, Guid communityId, Guid userId)
+        public static VehicleReport From(string plate, Guid communityId, Guid userId) => new VehicleReport()
         {
-            return new VehicleReport()
-            {
-                VehicleReportId = Guid.NewGuid(),
-                Plate = plate,
-                CommunityId = communityId,
-                UserId = userId
-            };
-        }
+            VehicleReportId = Guid.NewGuid(),
+            Plate = plate,
+            CommunityId = communityId,
+            UserId = userId
+        };
     }
 }
