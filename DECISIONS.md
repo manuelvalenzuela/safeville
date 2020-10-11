@@ -24,3 +24,6 @@ After a while, that method turns into a very large list of injected services tha
 My first decision was to follow the SharedContext approach, which enables to use a static Context with all the Services that are being used by some particular plugin, inverting the dependencies towards the main functionalities (the use cases).
 
 In order to provide to the repositories the -scoped to the request- DbContext of EntityFramework used by each use case, I used the Dependency Injection container provided by ASP.NET Core in each Controller constructor to initialize the needed services of the SharedContext.
+
+
+esto es un test
