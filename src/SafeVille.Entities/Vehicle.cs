@@ -14,14 +14,11 @@
 
         public string Plate { get; set; }
 
-        public static Vehicle From(Guid userId, string plate)
+        public static Vehicle From(Guid userId, string plate) => new Vehicle
         {
-            return new Vehicle
-            {
-                VehicleId = Guid.NewGuid(),
-                UserId = userId,
-                Plate = plate
-            };
-        }
+            VehicleId = Guid.NewGuid(),
+            UserId = userId,
+            Plate = plate
+        };
     }
 }
