@@ -13,15 +13,12 @@
 
         public virtual ICollection<CommunityUser> CommunityUsers { get; set; }
 
-        public static Community From(Guid ownerId, string communityName)
+        public static Community From(Guid ownerId, string communityName) => new Community
         {
-            return new Community
-            {
-                CommunityId = Guid.NewGuid(),
-                OwnerId = ownerId,
-                Name = communityName,
-                CommunityUsers = new List<CommunityUser>()
-            };
-        }
+            CommunityId = Guid.NewGuid(),
+            OwnerId = ownerId,
+            Name = communityName,
+            CommunityUsers = new List<CommunityUser>()
+        };
     }
 }
