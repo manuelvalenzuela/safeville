@@ -1,5 +1,3 @@
-this was me
-
 # Development decisions
 
 Please remember, this is a Learning Project, so be patient with me, this is my actual knowledge until now. But in the same line, please don't hesitate if you want to write some suggestions, questions or even different ways to approach problems, I will be eager to try and learn...
